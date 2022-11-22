@@ -15,7 +15,7 @@ public class Example14 {
         int sum = num1 + num2 + number;
 
 
-        System.out.println("Num 1:" +  + num1 +  " Num2:" + number + " Num3: " + num2 + " Num4:" + Math.pow(sum, 2));
+        System.out.println("Num 1:" +  + num1 +  " Num2:" + number + " Num3: " + num2 + " Num4: " + Math.pow(sum, 2));
 
     }
 }
