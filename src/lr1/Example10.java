@@ -1,6 +1,5 @@
 package lr1;
 
-import java.util.Date;
 import java.util.Scanner;
 
 public class Example10 {
