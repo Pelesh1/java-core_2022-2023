@@ -4,9 +4,9 @@ import java.util.Scanner;
 
 public class Example1 {
     public static void main(String[] args) {
-        Scanner id = new Scanner(System.in);
+        Scanner in = new Scanner(System.in);
         System.out.println("Введите число от 1 до 7: ");
-        int day = id.nextInt();
+        int day = in.nextInt();
         switch(day)
         {
             case 1:
