@@ -12,7 +12,7 @@ public class Example5 {
 
         int num2;
 
-        num2 = num/1000%1000;
+        num2 = num/1000%10;
         System.out.printf("Тысяч: %d ",num2);
     }
 }
