@@ -1,5 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import Saper.Box;
 import Saper.Coord;
 import Saper.Game;
@@ -9,6 +12,7 @@ public class Sapering extends JFrame {
 
     private Game game;
     private JPanel panel;
+    private JLabel label;
     private final int COLS = 9;
     private final int ROWS = 9;
 
@@ -22,10 +26,16 @@ public class Sapering extends JFrame {
         game = new Game(COLS, ROWS, BOMBS);
         game.start();
         setImages();
+        initLabel();
         initPanel();
         initFrame();
     }
 
+    private void initLabel()
+    {
+        label = new JLabel("Приветствуем в замечательное игре");
+        add (label,BorderLayout.SOUTH);
+    }
     private void initPanel(){
         panel = new JPanel(){
             @Override
@@ -38,20 +48,49 @@ public class Sapering extends JFrame {
                 }
             }
         };
+
+        panel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e)
+            {
+                int x = e.getX() / ImageSize;
+                int y = e.getY() / ImageSize;
+                Coord coord = new Coord(x,y);
+                if (e.getButton() == MouseEvent.BUTTON1)
+                    game.pressLeftButton (coord);
+                if (e.getButton() == MouseEvent.BUTTON3)
+                    game.pressRightButton (coord);
+                if (e.getButton() == MouseEvent.BUTTON2)
+                    game.start ();
+                label.setText(getMessage());
+                panel.repaint();
+            }
+        });
         panel.setPreferredSize(new Dimension(
                 Ranges.getSize().x * ImageSize,
                 Ranges.getSize().y * ImageSize));
         add (panel);
     }
+
+    private String getMessage()
+    {
+        switch (game.getState())
+        {
+            case PLAYED : return "Давайте думать";
+            case BOMBDED: return "Вы проиграли :(";
+            case WINNER: return "Ура, победа!";
+            default: return "Приветствуем в замечательное игре";
+        }
+    }
     private void initFrame()
     {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Saper");
-        setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
-        setIconImage(getImage("icon"));
         pack();
+        setLocationRelativeTo(null);
+        setIconImage(getImage("icon"));
     }
 
     private void setImages()
